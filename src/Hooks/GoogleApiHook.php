@@ -31,20 +31,20 @@ class GoogleApiHook extends HookFactory
 			->setDefaultValue($this->configurator->googleAnalyticsClientId);
 
 		$form->addGroup('webManager.web.hooks.googleApi.webMaster.title');
-		$form->addText('hash', 'webManager.web.hooks.webMaster.hash')
+		$form->addText('hash', 'webManager.web.hooks.googleApi.webMaster.hash')
 			->setDefaultValue($this->configurator->webMasterHash);
 
 		$form->addSubmit('save', 'form.save');
 
-		$form->onSuccess[] = [$this, 'googleAnalyticsFormSucceeded'];
+		$form->onSuccess[] = [$this, 'googleApiFormSucceeded'];
 
 		return $form;
 	}
 
-	public function mailchimpFormSucceeded(Form $form, $values)
+	public function googleApiFormSucceeded(Form $form, $values)
 	{
-		$this->configurator->googleApiApiKey = $values->apiKey;
-		$this->configurator->webmasterHash = $values->hash;
+		$this->configurator->googleAnalyticsClientId = $values->clientId;
+		$this->configurator->webMasterHash = $values->hash;
 
 		$this->flashNotifier->success('default.dataSaved');
 	}

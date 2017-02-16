@@ -6,7 +6,8 @@ extensions:
     googleApi: NAtrreid\GoogleApi\DI\GoogleApiExtension
 
 googleApi:
-    apiKey: 'apiKey'
+    gaClientId: 'googleAnalyticsclientId'
+    webMasterHash: 'hash'
 ```
 
 Použití
