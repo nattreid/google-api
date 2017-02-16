@@ -1,0 +1,10 @@
+web:
+    hooks:
+        googleApi:
+            title: "GoogleApi"
+            analytics:
+                title: "Google Analytics"
+                clientId: "Client Id"
+            webMaster:
+                title: "Web Master"
+                hash: "Hash code"
