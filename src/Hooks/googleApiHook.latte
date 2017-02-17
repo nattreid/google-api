@@ -1,5 +1,18 @@
-<h2>{_'webManager.web.hooks.googleApi.analytics.title'}</h2>
-<pre>
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a data-toggle="tab" href="#analytics">{_'webManager.web.hooks.googleApi.analytics.title'}</a>
+    </li>
+    <li>
+        <a data-toggle="tab" href="#webMaster">{_'webManager.web.hooks.googleApi.webMaster.title'}</a>
+    </li>
+    <li>
+        <a data-toggle="tab" href="#adWords">{_'webManager.web.hooks.googleApi.adWords.title'}</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div id="analytics" class="in active tab-pane fade">
+        <pre>
 &lt;script&gt;
     (function(i,s,o,g,r,a,m)&#123;i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -9,9 +22,36 @@
     ga('create', '<strong class="text-danger">UA-XXXXXXXX-X</strong>', 'auto');
     ga('send', 'pageview');
 &lt;/script&gt;
-</pre>
-
-<h2>{_'webManager.web.hooks.googleApi.webMaster.title'}</h2>
-<pre>
+        </pre>
+    </div>
+    <div id="webMaster" class="tab-pane fade">
+        <pre>
 &lt;meta name=&quot;google-site-verification&quot; content=&quot;<strong class="text-danger">i5S-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</strong>&quot; /&gt;
-</pre>
+        </pre>
+    </div>
+    <div id="adWords" class="tab-pane fade">
+        <pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+    /* &lt;![CDATA[ */
+        var google_conversion_id = <strong class="text-danger">1234567890</strong>;
+        var google_conversion_language = &quot;en&quot;;
+        var google_conversion_format = &quot;2&quot;;
+        var google_conversion_color = &quot;ffffff&quot;;
+        var google_conversion_label = &quot;<strong class="text-danger">xxx1XXx1xXXX123X1xX</strong>&quot;;
+        var google_conversion_value = 1.00;
+        var google_conversion_currency = &quot;CZK&quot;;
+        var google_remarketing_only = false;
+    /* ]]&gt; */
+&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;//www.googleadservices.com/pagead/conversion.js&quot;&gt;
+&lt;/script&gt;
+&lt;noscript&gt;
+    &lt;div style=&quot;display:inline;&quot;&gt;
+        &lt;img height=&quot;1&quot; width=&quot;1&quot; style=&quot;border-style:none;&quot; alt=&quot;&quot; src=&quot;//www.googleadservices.com/pagead/conversion/<strong
+            class="text-danger">1234567890</strong>/
+        ?value=1.00&amp;currency_code=CZK&amp;label=<strong class="text-danger">xxx1XXx1xXXX123X1xX</strong>&amp;guid=ON&amp;script=0&quot;/&gt;
+    &lt;/div&gt;
+&lt;/noscript&gt;
+        </pre>
+    </div>
+</div>

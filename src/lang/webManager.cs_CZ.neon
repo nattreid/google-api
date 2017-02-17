@@ -8,3 +8,7 @@ web:
             webMaster:
                 title: "Web Master"
                 hash: "Hash kód"
+            adWords:
+                title: "AdWords"
+                conversionId: "Váš \"google_conversion_id\""
+                conversionLabel: "Váš \"google_conversion_label\""

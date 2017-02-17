@@ -8,3 +8,7 @@ web:
             webMaster:
                 title: "Web Master"
                 hash: "Hash code"
+            adWords:
+                title: "AdWords"
+                conversionId: "Your \"google_conversion_id\""
+                conversionLabel: "Your \"google_conversion_label\""

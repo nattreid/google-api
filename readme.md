@@ -6,8 +6,10 @@ extensions:
     googleApi: NAtrreid\GoogleApi\DI\GoogleApiExtension
 
 googleApi:
-    gaClientId: 'googleAnalyticsclientId'
-    webMasterHash: 'hash'
+    gaClientId: 'UA-XXXXXXXX-X'
+    webMasterHash: 'i5S-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+    adWordsConversionId: '1234567890'
+    adWordsConversionLabel: 'xxx1XXx1xXXX123X1xX'
 ```
 
 Použití
@@ -20,11 +22,11 @@ protected function createComponentGoogleApi() {
 }
 
 public function someRender(){
-    $this['googleApi']->search('searchWord');       // vyhledavani
+    $this['googleApi']->conversion(3.5, 'CZK');       // konverze
 }
 ```
 
-v latte
+v @layout.latte
 ```latte
 <html>
 <head>
@@ -36,5 +38,14 @@ v latte
     {control googleApi}
 </body>
 </html>
+```
 
+na konverzní stránce (nejčastěji 'ThankYou')
+```html
+<html>
+<body>
+    <!-- html kod -->
+    {control googleApi:adWords}
+</body>
+</html>
 ```

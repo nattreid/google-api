@@ -7,6 +7,8 @@ namespace NAttreid\GoogleApi\Hooks;
  *
  * @property string $googleAnalyticsClientId Id google analytics
  * @property string $webMasterHash hash pro webmaster tools
+ * @property string $adWordsConversionId adWords conversion id
+ * @property string $adWordsConversionLabel adWords conversion label
  *
  * @author Attreid <attreid@gmail.com>
  */

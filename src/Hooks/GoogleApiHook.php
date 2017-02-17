@@ -34,6 +34,12 @@ class GoogleApiHook extends HookFactory
 		$form->addText('hash', 'webManager.web.hooks.googleApi.webMaster.hash')
 			->setDefaultValue($this->configurator->webMasterHash);
 
+		$form->addGroup('webManager.web.hooks.googleApi.adWords.title');
+		$form->addText('conversionId', 'webManager.web.hooks.googleApi.adWords.conversionId')
+			->setDefaultValue($this->configurator->adWordsConversionId);
+		$form->addText('conversionLabel', 'webManager.web.hooks.googleApi.adWords.conversionLabel')
+			->setDefaultValue($this->configurator->adWordsConversionLabel);
+
 		$form->addSubmit('save', 'form.save');
 
 		$form->onSuccess[] = [$this, 'googleApiFormSucceeded'];
@@ -45,6 +51,8 @@ class GoogleApiHook extends HookFactory
 	{
 		$this->configurator->googleAnalyticsClientId = $values->clientId;
 		$this->configurator->webMasterHash = $values->hash;
+		$this->configurator->adWordsConversionId = $values->conversionId;
+		$this->configurator->adWordsConversionLabel = $values->conversionLabel;
 
 		$this->flashNotifier->success('default.dataSaved');
 	}

@@ -23,7 +23,9 @@ class GoogleApiExtension extends CompilerExtension
 
 	private $defaults = [
 		'gaClientId' => null,
-		'webMasterHash' => null
+		'webMasterHash' => null,
+		'adWordsConversionId' => null,
+		'adWordsConversionLabel' => null
 	];
 
 	public function loadConfiguration()
@@ -42,6 +44,8 @@ class GoogleApiExtension extends CompilerExtension
 
 			$config['gaClientId'] = new Statement('?->googleAnalyticsClientId', ['@' . Configurator::class]);
 			$config['webMasterHash'] = new Statement('?->webMasterHash', ['@' . Configurator::class]);
+			$config['adWordsConversionId'] = new Statement('?->adWordsConversionId', ['@' . Configurator::class]);
+			$config['adWordsConversionLabel'] = new Statement('?->adWordsConversionLabel', ['@' . Configurator::class]);
 		}
 
 		if ($config['gaClientId'] === null) {
@@ -50,10 +54,16 @@ class GoogleApiExtension extends CompilerExtension
 		if ($config['webMasterHash'] === null) {
 			throw new InvalidStateException("GoogleApi: 'webMasterHash' does not set in config.neon");
 		}
+		if ($config['adWordsConversionId'] === null) {
+			throw new InvalidStateException("GoogleApi: 'adWordsConversionId' does not set in config.neon");
+		}
+		if ($config['adWordsConversionLabel'] === null) {
+			throw new InvalidStateException("GoogleApi: 'adWordsConversionLabel' does not set in config.neon");
+		}
 
 		$builder->addDefinition($this->prefix('factory'))
 			->setImplement(IGoogleApiFactory::class)
 			->setFactory(GoogleApi::class)
-			->setArguments([$config['gaClientId'], $config['webMasterHash']]);
+			->setArguments([$config['gaClientId'], $config['webMasterHash'], $config['adWordsConversionId'], $config['adWordsConversionLabel']]);
 	}
 }
