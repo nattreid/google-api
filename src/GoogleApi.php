@@ -2,6 +2,7 @@
 
 namespace NAttreid\GoogleApi;
 
+use NAttreid\GoogleApi\ECommerce\Transaction;
 use Nette\Application\UI\Control;
 
 /**
@@ -34,7 +35,7 @@ class GoogleApi extends Control
 	}
 
 	/**
-	 * Purchase event
+	 * Conversion event (adwords)
 	 * @param float $value
 	 * @param string $currency
 	 */
@@ -46,6 +47,15 @@ class GoogleApi extends Control
 		if ($currency !== null) {
 			$this->template->currency = $currency;
 		}
+	}
+
+	/**
+	 * Transaction event (ecommerce)
+	 * @param Transaction $transaction
+	 */
+	public function transaction(Transaction $transaction)
+	{
+		$this->template->transaction = $transaction;
 	}
 
 	public function render()

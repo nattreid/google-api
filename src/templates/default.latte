@@ -13,4 +13,29 @@
 
     ga('create', {$gaClientId}, 'auto');
     ga('send', 'pageview');
+
+    {ifset $transaction}
+        ga('require', 'ecommerce');
+
+        ga('ecommerce:addTransaction', {
+            id: {$transaction->id},
+            affiliation: {$transaction->affiliation},
+            revenue: {$transaction->revenue},
+            shipping: {$transaction->shipping},
+            tax: {$transaction->tax}
+        });
+
+        {foreach $transaction->items as $item}
+            ga('ecommerce:addItem', {
+                id: {$transaction->id},
+                name: {$item->name},
+                sku: {$item->sku},
+                category: {$item->category},
+                price: {$item->price},
+                quantity: {$item->quantity}
+            });
+        {/foreach}
+
+        ga('ecommerce:send');
+    {/ifset}
 </script>
