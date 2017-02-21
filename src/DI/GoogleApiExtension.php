@@ -48,19 +48,6 @@ class GoogleApiExtension extends CompilerExtension
 			$config['adWordsConversionLabel'] = new Statement('?->adWordsConversionLabel', ['@' . Configurator::class]);
 		}
 
-		if ($config['gaClientId'] === null) {
-			throw new InvalidStateException("GoogleApi: 'gaClientId' does not set in config.neon");
-		}
-		if ($config['webMasterHash'] === null) {
-			throw new InvalidStateException("GoogleApi: 'webMasterHash' does not set in config.neon");
-		}
-		if ($config['adWordsConversionId'] === null) {
-			throw new InvalidStateException("GoogleApi: 'adWordsConversionId' does not set in config.neon");
-		}
-		if ($config['adWordsConversionLabel'] === null) {
-			throw new InvalidStateException("GoogleApi: 'adWordsConversionLabel' does not set in config.neon");
-		}
-
 		$builder->addDefinition($this->prefix('factory'))
 			->setImplement(IGoogleApiFactory::class)
 			->setFactory(GoogleApi::class)
