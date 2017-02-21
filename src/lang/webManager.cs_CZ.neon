@@ -2,7 +2,7 @@ web:
     hooks:
         googleApi:
             title: "GoogleApi"
-            authentication: "Oveření"
+            authentication: "Ověření"
             appliesTo: "Platí pro"
             analytics:
                 title: "Google Analytics"
