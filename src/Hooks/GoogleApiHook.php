@@ -31,14 +31,18 @@ class GoogleApiHook extends HookFactory
 			->setDefaultValue($this->configurator->googleAnalyticsClientId);
 
 		$form->addGroup('webManager.web.hooks.googleApi.webMaster.title');
-		$form->addText('hash', 'webManager.web.hooks.googleApi.webMaster.hash')
-			->setDefaultValue($this->configurator->webMasterHash);
+		$form->addText('webMasterKey', 'webManager.web.hooks.googleApi.webMaster.key')
+			->setDefaultValue($this->configurator->googleWebMasterKey);
+
+		$form->addGroup('webManager.web.hooks.googleApi.merchant.title');
+		$form->addText('merchantKey', 'webManager.web.hooks.googleApi.merchant.key')
+			->setDefaultValue($this->configurator->googleMerchantKey);
 
 		$form->addGroup('webManager.web.hooks.googleApi.adWords.title');
 		$form->addText('conversionId', 'webManager.web.hooks.googleApi.adWords.conversionId')
-			->setDefaultValue($this->configurator->adWordsConversionId);
+			->setDefaultValue($this->configurator->googleAdWordsConversionId);
 		$form->addText('conversionLabel', 'webManager.web.hooks.googleApi.adWords.conversionLabel')
-			->setDefaultValue($this->configurator->adWordsConversionLabel);
+			->setDefaultValue($this->configurator->googleAdWordsConversionLabel);
 
 		$form->addSubmit('save', 'form.save');
 
@@ -50,9 +54,10 @@ class GoogleApiHook extends HookFactory
 	public function googleApiFormSucceeded(Form $form, $values)
 	{
 		$this->configurator->googleAnalyticsClientId = $values->clientId;
-		$this->configurator->webMasterHash = $values->hash;
-		$this->configurator->adWordsConversionId = $values->conversionId;
-		$this->configurator->adWordsConversionLabel = $values->conversionLabel;
+		$this->configurator->googleWebMasterKey = $values->webMasterKey;
+		$this->configurator->googleMerchantKey = $values->merchantKey;
+		$this->configurator->googleAdWordsConversionId = $values->conversionId;
+		$this->configurator->googleAdWordsConversionLabel = $values->conversionLabel;
 
 		$this->flashNotifier->success('default.dataSaved');
 	}

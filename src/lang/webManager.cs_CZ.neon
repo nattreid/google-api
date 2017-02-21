@@ -2,12 +2,17 @@ web:
     hooks:
         googleApi:
             title: "GoogleApi"
+            authentication: "Oveření"
+            appliesTo: "Platí pro"
             analytics:
                 title: "Google Analytics"
                 clientId: "Id klienta"
             webMaster:
                 title: "Web Master"
-                hash: "Hash kód"
+                key: "Ověřovací klíč"
+            merchant:
+                title: "Google Nákupy"
+                key: "Ověřovací klíč"
             adWords:
                 title: "AdWords"
                 conversionId: "Váš \"google_conversion_id\""

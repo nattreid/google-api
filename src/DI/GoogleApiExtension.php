@@ -10,7 +10,6 @@ use NAttreid\GoogleApi\IGoogleApiFactory;
 use NAttreid\WebManager\Services\Hooks\HookService;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Statement;
-use Nette\InvalidStateException;
 
 /**
  * Class GoogleApiExtension
@@ -23,7 +22,8 @@ class GoogleApiExtension extends CompilerExtension
 
 	private $defaults = [
 		'gaClientId' => null,
-		'webMasterHash' => null,
+		'webMasterKey' => null,
+		'merchantKey' => null,
 		'adWordsConversionId' => null,
 		'adWordsConversionLabel' => null
 	];
@@ -35,7 +35,7 @@ class GoogleApiExtension extends CompilerExtension
 
 		$hook = $builder->getByType(HookService::class);
 		if ($hook) {
-			$builder->addDefinition($this->prefix('googleApiHook'))
+			$builder->addDefinition($this->prefix('hook'))
 				->setClass(GoogleApiHook::class);
 
 			$this->setTranslation(__DIR__ . '/../lang/', [
@@ -43,14 +43,23 @@ class GoogleApiExtension extends CompilerExtension
 			]);
 
 			$config['gaClientId'] = new Statement('?->googleAnalyticsClientId', ['@' . Configurator::class]);
-			$config['webMasterHash'] = new Statement('?->webMasterHash', ['@' . Configurator::class]);
-			$config['adWordsConversionId'] = new Statement('?->adWordsConversionId', ['@' . Configurator::class]);
-			$config['adWordsConversionLabel'] = new Statement('?->adWordsConversionLabel', ['@' . Configurator::class]);
+			$config['webMasterKey'] = new Statement('?->googleWebMasterKey', ['@' . Configurator::class]);
+			$config['merchantKey'] = new Statement('?->googleMerchantKey', ['@' . Configurator::class]);
+			$config['adWordsConversionId'] = new Statement('?->googleAdWordsConversionId', ['@' . Configurator::class]);
+			$config['adWordsConversionLabel'] = new Statement('?->googleAdWordsConversionLabel', ['@' . Configurator::class]);
 		}
 
 		$builder->addDefinition($this->prefix('factory'))
 			->setImplement(IGoogleApiFactory::class)
 			->setFactory(GoogleApi::class)
-			->setArguments([$config['gaClientId'], $config['webMasterHash'], $config['adWordsConversionId'], $config['adWordsConversionLabel']]);
+			->setArguments([
+				$config['gaClientId'],
+				$config['adWordsConversionId'],
+				$config['adWordsConversionLabel'],
+				[
+					$config['webMasterKey'],
+					$config['merchantKey']
+				]
+			]);
 	}
 }

@@ -2,12 +2,17 @@ web:
     hooks:
         googleApi:
             title: "GoogleApi"
+            authentication: "Authentication"
+            appliesTo: "Applies to"
             analytics:
                 title: "Google Analytics"
                 clientId: "Client Id"
             webMaster:
                 title: "Web Master"
-                hash: "Hash code"
+                hash: "Authentication key"
+            merchant:
+                title: "Google Merchant"
+                key: "Authentication key"
             adWords:
                 title: "AdWords"
                 conversionId: "Your \"google_conversion_id\""

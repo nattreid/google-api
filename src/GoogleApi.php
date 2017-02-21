@@ -16,8 +16,8 @@ class GoogleApi extends Control
 	/** @var string */
 	private $gaClientId;
 
-	/** @var string */
-	private $webMasterHash;
+	/** @var string[] */
+	private $authenticationKeys;
 
 	/** @var string */
 	private $adWordsConversionId;
@@ -25,13 +25,13 @@ class GoogleApi extends Control
 	/** @var string */
 	private $adWordsConversionLabel;
 
-	public function __construct($gaClientId, $webMasterHash, $adWordsConversionId, $adWordsConversionLabel)
+	public function __construct($gaClientId, $adWordsConversionId, $adWordsConversionLabel, array $authenticationKeys)
 	{
 		parent::__construct();
 		$this->gaClientId = $gaClientId;
-		$this->webMasterHash = $webMasterHash;
 		$this->adWordsConversionId = $adWordsConversionId;
 		$this->adWordsConversionLabel = $adWordsConversionLabel;
+		$this->authenticationKeys = $authenticationKeys;
 	}
 
 	/**
@@ -65,10 +65,10 @@ class GoogleApi extends Control
 		$this->template->render();
 	}
 
-	public function renderWebMaster()
+	public function renderHead()
 	{
-		$this->template->webMasterHash = $this->webMasterHash;
-		$this->template->setFile(__DIR__ . '/templates/webMaster.latte');
+		$this->template->authenticationKeys = $this->authenticationKeys;
+		$this->template->setFile(__DIR__ . '/templates/head.latte');
 		$this->template->render();
 	}
 
