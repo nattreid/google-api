@@ -14,7 +14,7 @@ googleApi:
 
 Použití
 ```php
-/** @var NAttreid\GoogleApi\GoogleApiFactory @inject */
+/** @var NAttreid\GoogleApi\IGoogleApiFactory @inject */
 public $googleApiFactory;
 
 protected function createComponentGoogleApi() {
