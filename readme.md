@@ -22,7 +22,7 @@ protected function createComponentGoogleApi() {
 }
 
 public function someRender(){
-    $this['googleApi']->conversion(3.5, 'CZK');       // konverze
+    $this['googleApi']->conversion(3.5, 'CZK');       // konverze (eCommerce)
 }
 ```
 
