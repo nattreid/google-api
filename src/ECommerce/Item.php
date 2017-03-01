@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\GoogleApi\ECommerce;
 
 use InvalidArgumentException;
@@ -42,15 +44,15 @@ class Item
 	 * Product name
 	 * @param string $name
 	 */
-	protected function setName($name)
+	protected function setName(string $name)
 	{
-		$this->name = (string)$name;
+		$this->name = $name;
 	}
 
 	/**
 	 * @return string
 	 */
-	protected function getSku()
+	protected function getSku(): string
 	{
 		return $this->sku ?: '';
 	}
@@ -59,15 +61,15 @@ class Item
 	 * SKU/code
 	 * @param string $sku
 	 */
-	protected function setSku($sku)
+	protected function setSku(string $sku)
 	{
-		$this->sku = (string)$sku;
+		$this->sku = $sku;
 	}
 
 	/**
 	 * @return string
 	 */
-	protected function getCategory()
+	protected function getCategory(): string
 	{
 		return $this->category ?: '';
 	}
@@ -76,13 +78,13 @@ class Item
 	 * Category or variation
 	 * @param string $category
 	 */
-	protected function setCategory($category)
+	protected function setCategory(string $category)
 	{
-		$this->category = (string)$category;
+		$this->category = $category;
 	}
 
 	/**
-	 * @return float
+	 * @return float|''
 	 */
 	protected function getPrice()
 	{
@@ -93,13 +95,13 @@ class Item
 	 * Unit price
 	 * @param float $price
 	 */
-	protected function setPrice($price)
+	protected function setPrice(float $price)
 	{
-		$this->price = floatval($price);
+		$this->price = $price;
 	}
 
 	/**
-	 * @return int
+	 * @return int|''
 	 */
 	protected function getQuantity()
 	{
@@ -110,9 +112,9 @@ class Item
 	 * Quantity
 	 * @param int $quantity
 	 */
-	protected function setQuantity($quantity)
+	protected function setQuantity(int $quantity)
 	{
-		$this->quantity = intval($quantity);
+		$this->quantity = $quantity;
 	}
 
 }

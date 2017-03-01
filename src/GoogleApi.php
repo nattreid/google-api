@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\GoogleApi;
 
 use NAttreid\GoogleApi\ECommerce\Transaction;
@@ -25,7 +27,7 @@ class GoogleApi extends Control
 	/** @var string */
 	private $adWordsConversionLabel;
 
-	public function __construct($gaClientId, $adWordsConversionId, $adWordsConversionLabel, array $authenticationKeys)
+	public function __construct(string $gaClientId, string $adWordsConversionId, string $adWordsConversionLabel, array $authenticationKeys)
 	{
 		parent::__construct();
 		$this->gaClientId = $gaClientId;
@@ -39,7 +41,7 @@ class GoogleApi extends Control
 	 * @param float $value
 	 * @param string $currency
 	 */
-	public function conversion($value = null, $currency = null)
+	public function conversion(float $value = null, string $currency = null)
 	{
 		if ($value !== null) {
 			$this->template->price = floatval($value);

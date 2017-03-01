@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\GoogleApi\Hooks;
 
 use NAttreid\Form\Form;
 use NAttreid\WebManager\Services\Hooks\HookFactory;
+use Nette\Utils\ArrayHash;
 
 /**
  * Class GoogleApiHook
@@ -21,7 +24,7 @@ class GoogleApiHook extends HookFactory
 	}
 
 	/** @return Form */
-	public function create()
+	public function create(): Form
 	{
 		$form = $this->formFactory->create();
 		$form->setAjaxRequest();
@@ -51,7 +54,7 @@ class GoogleApiHook extends HookFactory
 		return $form;
 	}
 
-	public function googleApiFormSucceeded(Form $form, $values)
+	public function googleApiFormSucceeded(Form $form, ArrayHash $values)
 	{
 		$this->configurator->googleAnalyticsClientId = $values->clientId;
 		$this->configurator->googleWebMasterKey = $values->webMasterKey;

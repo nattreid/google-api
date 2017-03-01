@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\GoogleApi\ECommerce;
 
 use InvalidArgumentException;
@@ -43,7 +45,7 @@ class Transaction
 	/**
 	 * @return string
 	 */
-	protected function getAffiliation()
+	protected function getAffiliation(): string
 	{
 		return $this->affiliation;
 	}
@@ -52,13 +54,13 @@ class Transaction
 	 * Affiliation or store name
 	 * @param string $affiliation
 	 */
-	protected function setAffiliation($affiliation)
+	protected function setAffiliation(string $affiliation)
 	{
-		$this->affiliation = (string)$affiliation;
+		$this->affiliation = $affiliation;
 	}
 
 	/**
-	 * @return mixed
+	 * @return float|''
 	 */
 	protected function getRevenue()
 	{
@@ -69,13 +71,13 @@ class Transaction
 	 * Grand total
 	 * @param float $revenue
 	 */
-	protected function setRevenue($revenue)
+	protected function setRevenue(float $revenue)
 	{
-		$this->revenue = floatval($revenue);
+		$this->revenue = $revenue;
 	}
 
 	/**
-	 * @return float
+	 * @return float|''
 	 */
 	protected function getShipping()
 	{
@@ -86,13 +88,13 @@ class Transaction
 	 * Shipping
 	 * @param float $shipping
 	 */
-	protected function setShipping($shipping)
+	protected function setShipping(float $shipping)
 	{
-		$this->shipping = floatval($shipping);
+		$this->shipping = $shipping;
 	}
 
 	/**
-	 * @return float
+	 * @return float|''
 	 */
 	protected function getTax()
 	{
@@ -103,15 +105,15 @@ class Transaction
 	 * Tax
 	 * @param float $tax
 	 */
-	protected function setTax($tax)
+	protected function setTax(float $tax)
 	{
-		$this->tax = floatval($tax);
+		$this->tax = $tax;
 	}
 
 	/**
 	 * @return int
 	 */
-	protected function getId()
+	protected function getId(): int
 	{
 		if (empty($this->id)) {
 			throw new InvalidArgumentException('Transaction id must be set');
@@ -122,15 +124,15 @@ class Transaction
 	/**
 	 * @param int $id
 	 */
-	protected function setId($id)
+	protected function setId(int $id)
 	{
-		$this->id = intval($id);
+		$this->id = $id;
 	}
 
 	/**
 	 * @return Item[]
 	 */
-	public function getItems()
+	public function getItems(): array
 	{
 		return $this->items;
 	}
