@@ -43,9 +43,9 @@ class Transaction
 	private $items = [];
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
-	protected function getAffiliation(): string
+	protected function getAffiliation()
 	{
 		return $this->affiliation;
 	}
@@ -60,11 +60,11 @@ class Transaction
 	}
 
 	/**
-	 * @return float|''
+	 * @return float|null
 	 */
 	protected function getRevenue()
 	{
-		return $this->revenue ?: '';
+		return $this->revenue;
 	}
 
 	/**
@@ -77,11 +77,11 @@ class Transaction
 	}
 
 	/**
-	 * @return float|''
+	 * @return float|null
 	 */
 	protected function getShipping()
 	{
-		return $this->shipping ?: '';
+		return $this->shipping;
 	}
 
 	/**
@@ -94,11 +94,11 @@ class Transaction
 	}
 
 	/**
-	 * @return float|''
+	 * @return float|null
 	 */
 	protected function getTax()
 	{
-		return $this->tax ?: '';
+		return $this->tax;
 	}
 
 	/**

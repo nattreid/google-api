@@ -50,11 +50,11 @@ class Item
 	}
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
-	protected function getSku(): string
+	protected function getSku()
 	{
-		return $this->sku ?: '';
+		return $this->sku;
 	}
 
 	/**
@@ -67,11 +67,11 @@ class Item
 	}
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
-	protected function getCategory(): string
+	protected function getCategory()
 	{
-		return $this->category ?: '';
+		return $this->category;
 	}
 
 	/**
@@ -84,11 +84,11 @@ class Item
 	}
 
 	/**
-	 * @return float|''
+	 * @return float|null
 	 */
 	protected function getPrice()
 	{
-		return $this->price ?: '';
+		return $this->price;
 	}
 
 	/**
@@ -101,11 +101,11 @@ class Item
 	}
 
 	/**
-	 * @return int|''
+	 * @return int|null
 	 */
 	protected function getQuantity()
 	{
-		return $this->quantity ?: '';
+		return $this->quantity;
 	}
 
 	/**
