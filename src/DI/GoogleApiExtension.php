@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace NAttreid\GoogleApi\DI;
 
 use NAttreid\Cms\Configurator\Configurator;
-use NAttreid\Cms\ExtensionTranslatorTrait;
+use NAttreid\Cms\DI\ExtensionTranslatorTrait;
 use NAttreid\GoogleApi\GoogleApi;
 use NAttreid\GoogleApi\Hooks\GoogleApiHook;
 use NAttreid\GoogleApi\IGoogleApiFactory;
