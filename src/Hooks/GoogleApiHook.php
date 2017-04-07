@@ -1,11 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\GoogleApi\Hooks;
 
 use NAttreid\Form\Form;
 use NAttreid\WebManager\Services\Hooks\HookFactory;
+use Nette\ComponentModel\Component;
 use Nette\Utils\ArrayHash;
 
 /**
@@ -23,8 +24,8 @@ class GoogleApiHook extends HookFactory
 		$this->latte = __DIR__ . '/googleApiHook.latte';
 	}
 
-	/** @return Form */
-	public function create(): Form
+	/** @return Component */
+	public function create(): Component
 	{
 		$form = $this->formFactory->create();
 		$form->setAjaxRequest();
