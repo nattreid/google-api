@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\GoogleApi\ECommerce;
 
@@ -32,7 +32,7 @@ class Item
 	/**
 	 * @return string
 	 */
-	protected function getName()
+	protected function getName(): string
 	{
 		if (empty($this->name)) {
 			throw new InvalidArgumentException('Item name must be set');
@@ -44,7 +44,7 @@ class Item
 	 * Product name
 	 * @param string $name
 	 */
-	protected function setName(string $name)
+	protected function setName(string $name): void
 	{
 		$this->name = $name;
 	}
@@ -52,7 +52,7 @@ class Item
 	/**
 	 * @return string|null
 	 */
-	protected function getSku()
+	protected function getSku(): ?string
 	{
 		return $this->sku;
 	}
@@ -61,7 +61,7 @@ class Item
 	 * SKU/code
 	 * @param string $sku
 	 */
-	protected function setSku(string $sku)
+	protected function setSku(string $sku): void
 	{
 		$this->sku = $sku;
 	}
@@ -69,7 +69,7 @@ class Item
 	/**
 	 * @return string|null
 	 */
-	protected function getCategory()
+	protected function getCategory(): ?string
 	{
 		return $this->category;
 	}
@@ -78,7 +78,7 @@ class Item
 	 * Category or variation
 	 * @param string $category
 	 */
-	protected function setCategory(string $category)
+	protected function setCategory(string $category): void
 	{
 		$this->category = $category;
 	}
@@ -86,7 +86,7 @@ class Item
 	/**
 	 * @return float|null
 	 */
-	protected function getPrice()
+	protected function getPrice(): ?float
 	{
 		return $this->price;
 	}
@@ -95,7 +95,7 @@ class Item
 	 * Unit price
 	 * @param float $price
 	 */
-	protected function setPrice(float $price)
+	protected function setPrice(float $price): void
 	{
 		$this->price = $price;
 	}
@@ -103,7 +103,7 @@ class Item
 	/**
 	 * @return int|null
 	 */
-	protected function getQuantity()
+	protected function getQuantity(): ?int
 	{
 		return $this->quantity;
 	}
@@ -112,7 +112,7 @@ class Item
 	 * Quantity
 	 * @param int $quantity
 	 */
-	protected function setQuantity(int $quantity)
+	protected function setQuantity(int $quantity): void
 	{
 		$this->quantity = $quantity;
 	}

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\GoogleApi;
 
@@ -41,7 +41,7 @@ class GoogleApi extends Control
 	 * @param float $value
 	 * @param string $currency
 	 */
-	public function conversion(float $value = null, string $currency = null)
+	public function conversion(float $value = null, string $currency = null): void
 	{
 		if ($value !== null) {
 			$this->template->price = floatval($value);
@@ -55,26 +55,26 @@ class GoogleApi extends Control
 	 * Transaction event (ecommerce)
 	 * @param Transaction $transaction
 	 */
-	public function transaction(Transaction $transaction)
+	public function transaction(Transaction $transaction): void
 	{
 		$this->template->transaction = $transaction;
 	}
 
-	public function render()
+	public function render(): void
 	{
 		$this->template->gaClientId = $this->gaClientId;
 		$this->template->setFile(__DIR__ . '/templates/default.latte');
 		$this->template->render();
 	}
 
-	public function renderHead()
+	public function renderHead(): void
 	{
 		$this->template->authenticationKeys = $this->authenticationKeys;
 		$this->template->setFile(__DIR__ . '/templates/head.latte');
 		$this->template->render();
 	}
 
-	public function renderAdWords()
+	public function renderAdWords(): void
 	{
 		$this->template->adWordsConversionId = $this->adWordsConversionId;
 		$this->template->adWordsConversionLabel = $this->adWordsConversionLabel;
@@ -85,6 +85,5 @@ class GoogleApi extends Control
 
 interface IGoogleApiFactory
 {
-	/** @return GoogleApi */
-	public function create();
+	public function create(): GoogleApi;
 }

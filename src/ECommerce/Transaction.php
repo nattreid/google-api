@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\GoogleApi\ECommerce;
 
@@ -45,7 +45,7 @@ class Transaction
 	/**
 	 * @return string|null
 	 */
-	protected function getAffiliation()
+	protected function getAffiliation(): ?string
 	{
 		return $this->affiliation;
 	}
@@ -54,7 +54,7 @@ class Transaction
 	 * Affiliation or store name
 	 * @param string $affiliation
 	 */
-	protected function setAffiliation(string $affiliation)
+	protected function setAffiliation(string $affiliation): void
 	{
 		$this->affiliation = $affiliation;
 	}
@@ -62,7 +62,7 @@ class Transaction
 	/**
 	 * @return float|null
 	 */
-	protected function getRevenue()
+	protected function getRevenue(): ?float
 	{
 		return $this->revenue;
 	}
@@ -71,7 +71,7 @@ class Transaction
 	 * Grand total
 	 * @param float $revenue
 	 */
-	protected function setRevenue(float $revenue)
+	protected function setRevenue(float $revenue): void
 	{
 		$this->revenue = $revenue;
 	}
@@ -79,7 +79,7 @@ class Transaction
 	/**
 	 * @return float|null
 	 */
-	protected function getShipping()
+	protected function getShipping(): ?float
 	{
 		return $this->shipping;
 	}
@@ -88,7 +88,7 @@ class Transaction
 	 * Shipping
 	 * @param float $shipping
 	 */
-	protected function setShipping(float $shipping)
+	protected function setShipping(float $shipping): void
 	{
 		$this->shipping = $shipping;
 	}
@@ -96,7 +96,7 @@ class Transaction
 	/**
 	 * @return float|null
 	 */
-	protected function getTax()
+	protected function getTax(): ?float
 	{
 		return $this->tax;
 	}
@@ -105,7 +105,7 @@ class Transaction
 	 * Tax
 	 * @param float $tax
 	 */
-	protected function setTax(float $tax)
+	protected function setTax(float $tax): void
 	{
 		$this->tax = $tax;
 	}
@@ -124,7 +124,7 @@ class Transaction
 	/**
 	 * @param int $id
 	 */
-	protected function setId(int $id)
+	protected function setId(int $id): void
 	{
 		$this->id = $id;
 	}
@@ -140,7 +140,7 @@ class Transaction
 	/**
 	 * @param Item $item
 	 */
-	public function addItem(Item $item)
+	public function addItem(Item $item): void
 	{
 		$this->items[] = $item;
 	}

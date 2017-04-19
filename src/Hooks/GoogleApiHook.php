@@ -19,7 +19,7 @@ class GoogleApiHook extends HookFactory
 	/** @var IConfigurator */
 	protected $configurator;
 
-	public function init()
+	public function init(): void
 	{
 		$this->latte = __DIR__ . '/googleApiHook.latte';
 	}
@@ -55,7 +55,7 @@ class GoogleApiHook extends HookFactory
 		return $form;
 	}
 
-	public function googleApiFormSucceeded(Form $form, ArrayHash $values)
+	public function googleApiFormSucceeded(Form $form, ArrayHash $values): void
 	{
 		$this->configurator->googleAnalyticsClientId = $values->clientId;
 		$this->configurator->googleWebMasterKey = $values->webMasterKey;
