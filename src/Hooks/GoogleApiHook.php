@@ -22,6 +22,10 @@ class GoogleApiHook extends HookFactory
 	public function init(): void
 	{
 		$this->latte = __DIR__ . '/googleApiHook.latte';
+
+		if (!$this->configurator->googleApi) {
+			$this->configurator->googleApi = new GoogleApiConfig;
+		}
 	}
 
 	/** @return Component */
@@ -32,21 +36,21 @@ class GoogleApiHook extends HookFactory
 
 		$form->addGroup('webManager.web.hooks.googleApi.analytics.title');
 		$form->addText('clientId', 'webManager.web.hooks.googleApi.analytics.clientId')
-			->setDefaultValue($this->configurator->googleAnalyticsClientId);
+			->setDefaultValue($this->configurator->googleApi->gaClientId);
 
 		$form->addGroup('webManager.web.hooks.googleApi.webMaster.title');
 		$form->addText('webMasterKey', 'webManager.web.hooks.googleApi.webMaster.key')
-			->setDefaultValue($this->configurator->googleWebMasterKey);
+			->setDefaultValue($this->configurator->googleApi->webMasterKey);
 
 		$form->addGroup('webManager.web.hooks.googleApi.merchant.title');
 		$form->addText('merchantKey', 'webManager.web.hooks.googleApi.merchant.key')
-			->setDefaultValue($this->configurator->googleMerchantKey);
+			->setDefaultValue($this->configurator->googleApi->merchantKey);
 
 		$form->addGroup('webManager.web.hooks.googleApi.adWords.title');
-		$form->addText('conversionId', 'webManager.web.hooks.googleApi.adWords.conversionId')
-			->setDefaultValue($this->configurator->googleAdWordsConversionId);
+		$form->addInteger('conversionId', 'webManager.web.hooks.googleApi.adWords.conversionId')
+			->setDefaultValue($this->configurator->googleApi->adWordsConversionId);
 		$form->addText('conversionLabel', 'webManager.web.hooks.googleApi.adWords.conversionLabel')
-			->setDefaultValue($this->configurator->googleAdWordsConversionLabel);
+			->setDefaultValue($this->configurator->googleApi->adWordsConversionLabel);
 
 		$form->addSubmit('save', 'form.save');
 
@@ -57,11 +61,15 @@ class GoogleApiHook extends HookFactory
 
 	public function googleApiFormSucceeded(Form $form, ArrayHash $values): void
 	{
-		$this->configurator->googleAnalyticsClientId = $values->clientId;
-		$this->configurator->googleWebMasterKey = $values->webMasterKey;
-		$this->configurator->googleMerchantKey = $values->merchantKey;
-		$this->configurator->googleAdWordsConversionId = $values->conversionId;
-		$this->configurator->googleAdWordsConversionLabel = $values->conversionLabel;
+		$config = $this->configurator->googleApi;
+
+		$config->gaClientId = $values->clientId ?: null;
+		$config->webMasterKey = $values->webMasterKey ?: null;
+		$config->merchantKey = $values->merchantKey ?: null;
+		$config->adWordsConversionId = $values->conversionId ?: null;
+		$config->adWordsConversionLabel = $values->conversionLabel ?: null;
+
+		$this->configurator->googleApi = $config;
 
 		$this->flashNotifier->success('default.dataSaved');
 	}

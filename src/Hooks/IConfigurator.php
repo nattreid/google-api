@@ -7,11 +7,7 @@ namespace NAttreid\GoogleApi\Hooks;
 /**
  * Interface IConfigurator
  *
- * @property string $googleAnalyticsClientId Id google analytics
- * @property string $googleWebMasterKey overovaci klic pro webmaster tools
- * @property string $googleMerchantKey overovaci klic pro google merchant
- * @property string $googleAdWordsConversionId adWords conversion id
- * @property string $googleAdWordsConversionLabel adWords conversion label
+ * @property GoogleApiConfig $googleApi
  *
  * @author Attreid <attreid@gmail.com>
  */

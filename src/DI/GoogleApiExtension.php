@@ -7,6 +7,7 @@ namespace NAttreid\GoogleApi\DI;
 use NAttreid\Cms\Configurator\Configurator;
 use NAttreid\Cms\DI\ExtensionTranslatorTrait;
 use NAttreid\GoogleApi\GoogleApi;
+use NAttreid\GoogleApi\Hooks\GoogleApiConfig;
 use NAttreid\GoogleApi\Hooks\GoogleApiHook;
 use NAttreid\GoogleApi\IGoogleApiFactory;
 use NAttreid\WebManager\Services\Hooks\HookService;
@@ -44,24 +45,19 @@ class GoogleApiExtension extends CompilerExtension
 				'webManager'
 			]);
 
-			$config['gaClientId'] = new Statement('?->googleAnalyticsClientId', ['@' . Configurator::class]);
-			$config['webMasterKey'] = new Statement('?->googleWebMasterKey', ['@' . Configurator::class]);
-			$config['merchantKey'] = new Statement('?->googleMerchantKey', ['@' . Configurator::class]);
-			$config['adWordsConversionId'] = new Statement('?->googleAdWordsConversionId', ['@' . Configurator::class]);
-			$config['adWordsConversionLabel'] = new Statement('?->googleAdWordsConversionLabel', ['@' . Configurator::class]);
+			$googleApi = new Statement('?->googleApi \?\? new' . GoogleApiConfig::class, ['@' . Configurator::class]);
+		} else {
+			$googleApi = new GoogleApiConfig;
+			$googleApi->gaClientId = $config['gaClientId'];
+			$googleApi->adWordsConversionId = $config['adWordsConversionId'];
+			$googleApi->adWordsConversionLabel = $config['adWordsConversionLabel'];
+			$googleApi->webMasterKey = $config['webMasterKey'];
+			$googleApi->merchantKey = $config['merchantKey'];
 		}
 
 		$builder->addDefinition($this->prefix('factory'))
 			->setImplement(IGoogleApiFactory::class)
 			->setFactory(GoogleApi::class)
-			->setArguments([
-				$config['gaClientId'],
-				$config['adWordsConversionId'],
-				$config['adWordsConversionLabel'],
-				[
-					$config['webMasterKey'],
-					$config['merchantKey']
-				]
-			]);
+			->setArguments([$googleApi]);
 	}
 }
