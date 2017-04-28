@@ -45,7 +45,7 @@ class GoogleApiExtension extends CompilerExtension
 				'webManager'
 			]);
 
-			$googleApi = new Statement('?->googleApi \?\? new' . GoogleApiConfig::class, ['@' . Configurator::class]);
+			$googleApi = new Statement('?->googleApi \?\? new ' . GoogleApiConfig::class, ['@' . Configurator::class]);
 		} else {
 			$googleApi = new GoogleApiConfig;
 			$googleApi->gaClientId = $config['gaClientId'];
