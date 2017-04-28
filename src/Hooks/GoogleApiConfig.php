@@ -36,52 +36,52 @@ class GoogleApiConfig
 	/** @var string */
 	private $adWordsConversionLabel;
 
-	public function getGaClientId(): ?string
+	protected function getGaClientId(): ?string
 	{
 		return $this->gaClientId;
 	}
 
-	public function setGaClientId(?string $gaClientId)
+	protected function setGaClientId(?string $gaClientId)
 	{
 		$this->gaClientId = $gaClientId;
 	}
 
-	public function getWebMasterKey(): ?string
+	protected function getWebMasterKey(): ?string
 	{
 		return $this->webMasterKey;
 	}
 
-	public function setWebMasterKey(?string $webMasterKey)
+	protected function setWebMasterKey(?string $webMasterKey)
 	{
 		$this->webMasterKey = $webMasterKey;
 	}
 
-	public function getMerchantKey(): ?string
+	protected function getMerchantKey(): ?string
 	{
 		return $this->merchantKey;
 	}
 
-	public function setMerchantKey(?string $merchantKey)
+	protected function setMerchantKey(?string $merchantKey)
 	{
 		$this->merchantKey = $merchantKey;
 	}
 
-	public function getAdWordsConversionId(): ?int
+	protected function getAdWordsConversionId(): ?int
 	{
 		return $this->adWordsConversionId;
 	}
 
-	public function setAdWordsConversionId(?int $adWordsConversionId)
+	protected function setAdWordsConversionId(?int $adWordsConversionId)
 	{
 		$this->adWordsConversionId = $adWordsConversionId;
 	}
 
-	public function getAdWordsConversionLabel(): ?string
+	protected function getAdWordsConversionLabel(): ?string
 	{
 		return $this->adWordsConversionLabel;
 	}
 
-	public function setAdWordsConversionLabel(?string $adWordsConversionLabel)
+	protected function setAdWordsConversionLabel(?string $adWordsConversionLabel)
 	{
 		$this->adWordsConversionLabel = $adWordsConversionLabel;
 	}
