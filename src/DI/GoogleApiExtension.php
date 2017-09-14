@@ -39,7 +39,7 @@ class GoogleApiExtension extends CompilerExtension
 		$hook = $builder->getByType(HookService::class);
 		if ($hook) {
 			$builder->addDefinition($this->prefix('hook'))
-				->setClass(GoogleApiHook::class);
+				->setType(GoogleApiHook::class);
 
 			$this->setTranslation(__DIR__ . '/../lang/', [
 				'webManager'
