@@ -6,8 +6,8 @@
         var google_conversion_format = "3";
         var google_conversion_color = "ffffff";
         var google_conversion_label = {$adWordsConversionLabel};
-        {if $price}var google_conversion_value = {$price};{/if}
-        {if $currency}var google_conversion_currency = {$currency};{/if}
+        {ifset $price}var google_conversion_value = {$price};{/ifset}
+        {ifset $currency}var google_conversion_currency = {$currency};{/ifset}
         var google_remarketing_only = false;
         /* ]]> */
     </script>
@@ -17,7 +17,7 @@
         <div style="display:inline;">
             <img height="1" width="1" style="border-style:none;" alt=""
                  src="//www.googleadservices.com/pagead/conversion/{$adWordsConversionId|noescape}/
-                 ?{if $price}value={$price|noescape}&{/if}{if $currency}currency_code={$currency|noescape}&{/if}label={$adWordsConversionLabel|noescape}&guid=ON&script=0"/>
+                 ?{ifset $price}value={$price|noescape}&{/ifset}{ifset $currency}currency_code={$currency|noescape}&{/ifset}label={$adWordsConversionLabel|noescape}&guid=ON&script=0"/>
         </div>
     </noscript>
 {/if}
