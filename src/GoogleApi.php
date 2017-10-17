@@ -7,6 +7,7 @@ namespace NAttreid\GoogleApi;
 use NAttreid\GoogleApi\ECommerce\Transaction;
 use NAttreid\GoogleApi\Hooks\GoogleApiConfig;
 use Nette\Application\UI\Control;
+use Nette\Utils\ArrayHash;
 
 /**
  * Class GoogleApiClient
@@ -32,12 +33,15 @@ class GoogleApi extends Control
 	 */
 	public function conversion(float $value = null, string $currency = null): void
 	{
+		$conversion = new ArrayHash;
 		if ($value !== null) {
-			$this->template->price = floatval($value);
+			$conversion->price = floatval($value);
 		}
 		if ($currency !== null) {
-			$this->template->currency = $currency;
+			$conversion->currency = $currency;
 		}
+
+		$this->template->conversion = $conversion;
 	}
 
 	/**
@@ -51,6 +55,8 @@ class GoogleApi extends Control
 
 	public function render(): void
 	{
+		$this->template->adWordsConversionId = $this->config->adWordsConversionId;
+		$this->template->adWordsConversionLabel = $this->config->adWordsConversionLabel;
 		$this->template->gaClientId = $this->config->gaClientId;
 		$this->template->setFile(__DIR__ . '/templates/default.latte');
 		$this->template->render();
@@ -68,8 +74,6 @@ class GoogleApi extends Control
 
 	public function renderAdWords(): void
 	{
-		$this->template->adWordsConversionId = $this->config->adWordsConversionId;
-		$this->template->adWordsConversionLabel = $this->config->adWordsConversionLabel;
 		$this->template->setFile(__DIR__ . '/templates/adWords.latte');
 		$this->template->render();
 	}

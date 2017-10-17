@@ -54,13 +54,3 @@ v @layout.latte
 </body>
 </html>
 ```
-
-na konverzní stránce (nejčastěji 'ThankYou')
-```html
-<html>
-<body>
-    <!-- html kod -->
-    {control googleApi:adWords}
-</body>
-</html>
-```
