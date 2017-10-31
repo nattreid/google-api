@@ -46,21 +46,21 @@ class GoogleApi extends Control
 
 	/**
 	 * Ecommerce remarketing
-	 * @param int|null $id
-	 * @param float|null $value
 	 * @param string|null $type home, searchresults, category, product, cart, purchase, other
+	 * @param float|null $value
+	 * @param int|null $id
 	 */
-	public function remarketingEcomm(int $id = null, float $value = null, string $type = null): void
+	public function remarketingEcomm(string $type = null, float $value = null, int $id = null): void
 	{
 		$data = new ArrayHash;
-		if ($id !== null) {
-			$data->ecomm_prodid = $id;
+		if ($type !== null) {
+			$data->ecomm_pagetype = $type;
 		}
 		if ($value !== null) {
 			$data->ecomm_totalvalue = $value;
 		}
-		if ($type !== null) {
-			$data->ecomm_pagetype = $type;
+		if ($id !== null) {
+			$data->ecomm_prodid = $id;
 		}
 		$this->template->remarketing = $data;
 	}

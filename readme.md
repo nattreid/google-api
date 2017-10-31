@@ -24,7 +24,7 @@ protected function createComponentGoogleApi() {
 
 public function someRender(){
     // adwords
-    $this['googleApi']->remarketingEcomm(123, 3.5, 'product');   // remarketing
+    $this['googleApi']->remarketingEcomm('product', 3.5, 123);   // remarketing
     $this['googleApi']->conversion(3.5, 'CZK');                  // konverze
     
     // eCommerce
