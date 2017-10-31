@@ -39,7 +39,7 @@
         ga('ecommerce:send');
     {/ifset}
 </script>
-{dump $adWordsConversionId}
+
 {if isset($remarketing) && $adWordsConversionId}
     <script type="text/javascript">
         var google_tag_params = {$remarketing};
