@@ -23,7 +23,9 @@ protected function createComponentGoogleApi() {
 }
 
 public function someRender(){
-    $this['googleApi']->conversion(3.5, 'CZK');       // konverze (adWords)
+    // adwords
+    $this['googleApi']->remarketingEcomm(123, 3.5, 'product');   // remarketing
+    $this['googleApi']->conversion(3.5, 'CZK');                  // konverze
     
     // eCommerce
     $transaction = new Transaction;

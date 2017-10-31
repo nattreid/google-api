@@ -39,6 +39,27 @@
         ga('ecommerce:send');
     {/ifset}
 </script>
+{dump $adWordsConversionId}
+{if isset($remarketing) && $adWordsConversionId}
+    <script type="text/javascript">
+        var google_tag_params = {$remarketing};
+    </script>
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = {$adWordsConversionId};
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+        /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+    </script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt=""
+                 src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/{$adWordsConversionId|noescape}/?guid=ON&amp;script=0"/>
+        </div>
+    </noscript>
+{/if}
 
 {if isset($conversion) && $adWordsConversionId}
     <script type="text/javascript">
