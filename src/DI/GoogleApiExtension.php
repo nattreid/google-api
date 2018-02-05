@@ -6,58 +6,36 @@ namespace NAttreid\GoogleApi\DI;
 
 use NAttreid\Cms\Configurator\Configurator;
 use NAttreid\Cms\DI\ExtensionTranslatorTrait;
-use NAttreid\GoogleApi\GoogleApi;
 use NAttreid\GoogleApi\Hooks\GoogleApiConfig;
 use NAttreid\GoogleApi\Hooks\GoogleApiHook;
-use NAttreid\GoogleApi\IGoogleApiFactory;
 use NAttreid\WebManager\Services\Hooks\HookService;
-use Nette\DI\CompilerExtension;
 use Nette\DI\Statement;
 
-/**
- * Class GoogleApiExtension
- *
- * @author Attreid <attreid@gmail.com>
- */
-class GoogleApiExtension extends CompilerExtension
-{
-	use ExtensionTranslatorTrait;
-
-	private $defaults = [
-		'gaClientId' => null,
-		'webMasterKey' => null,
-		'merchantKey' => null,
-		'adWordsConversionId' => null,
-		'adWordsConversionLabel' => null
-	];
-
-	public function loadConfiguration(): void
+if (trait_exists('NAttreid\Cms\DI\ExtensionTranslatorTrait')) {
+	class GoogleApiExtension extends AbstractGoogleApiExtension
 	{
-		$builder = $this->getContainerBuilder();
-		$config = $this->validateConfig($this->defaults, $this->getConfig());
+		use ExtensionTranslatorTrait;
 
-		$hook = $builder->getByType(HookService::class);
-		if ($hook) {
-			$builder->addDefinition($this->prefix('hook'))
-				->setType(GoogleApiHook::class);
+		protected function prepareHook(array $config)
+		{
+			$builder = $this->getContainerBuilder();
+			$hook = $builder->getByType(HookService::class);
+			if ($hook) {
+				$builder->addDefinition($this->prefix('hook'))
+					->setType(GoogleApiHook::class);
 
-			$this->setTranslation(__DIR__ . '/../lang/', [
-				'webManager'
-			]);
+				$this->setTranslation(__DIR__ . '/../lang/', [
+					'webManager'
+				]);
 
-			$googleApi = new Statement('?->googleApi \?: new ' . GoogleApiConfig::class, ['@' . Configurator::class]);
-		} else {
-			$googleApi = new GoogleApiConfig;
-			$googleApi->gaClientId = $config['gaClientId'];
-			$googleApi->adWordsConversionId = $config['adWordsConversionId'];
-			$googleApi->adWordsConversionLabel = $config['adWordsConversionLabel'];
-			$googleApi->webMasterKey = $config['webMasterKey'];
-			$googleApi->merchantKey = $config['merchantKey'];
+				return new Statement('?->googleApi \?: new ' . GoogleApiConfig::class, ['@' . Configurator::class]);
+			} else {
+				return parent::prepareHook($config);
+			}
 		}
-
-		$builder->addDefinition($this->prefix('factory'))
-			->setImplement(IGoogleApiFactory::class)
-			->setFactory(GoogleApi::class)
-			->setArguments([$googleApi]);
+	}
+} else {
+	class GoogleApiExtension extends AbstractGoogleApiExtension
+	{
 	}
 }
