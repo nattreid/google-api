@@ -45,5 +45,6 @@ abstract class AbstractGoogleApiExtension extends CompilerExtension
 		$googleApi->adWordsConversionLabel = $config['adWordsConversionLabel'];
 		$googleApi->webMasterKey = $config['webMasterKey'];
 		$googleApi->merchantKey = $config['merchantKey'];
+		return $googleApi;
 	}
 }
