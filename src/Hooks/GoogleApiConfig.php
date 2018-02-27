@@ -9,11 +9,11 @@ use Nette\SmartObject;
 /**
  * Class GoogleApiConfig
  *
- * @property string $gaClientId Id google analytics
- * @property string $webMasterKey overovaci klic pro webmaster tools
- * @property string $merchantKey overovaci klic pro google merchant
- * @property int $adWordsConversionId adWords conversion id
- * @property string $adWordsConversionLabel adWords conversion label
+ * @property string|null $gaClientId Id google analytics
+ * @property string|null $webMasterKey overovaci klic pro webmaster tools
+ * @property string|null $merchantKey overovaci klic pro google merchant
+ * @property int|null $adWordsConversionId adWords conversion id
+ * @property string|null $adWordsConversionLabel adWords conversion label
  *
  * @author Attreid <attreid@gmail.com>
  */

@@ -12,6 +12,9 @@ use Nette\Utils\ArrayHash;
 /**
  * Class GoogleApiClient
  *
+ * @property string|null $gaClientId Id google analytics
+ * @property int|null $adWordsConversionId adWords conversion id
+ *
  * @author Attreid <attreid@gmail.com>
  */
 class GoogleApi extends Control
@@ -24,6 +27,16 @@ class GoogleApi extends Control
 	{
 		parent::__construct();
 		$this->config = $config;
+	}
+
+	protected function getGaClientId(): ?string
+	{
+		return $this->config->gaClientId;
+	}
+
+	protected function getAdWordsConversionId(): ?int
+	{
+		return $this->config->adWordsConversionId;
 	}
 
 	/**
