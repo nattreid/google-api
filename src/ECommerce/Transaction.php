@@ -10,11 +10,12 @@ use Nette\SmartObject;
 /**
  * Class Transaction
  *
- * @property int $id
- * @property string $affiliation
- * @property float $revenue
- * @property float $shipping
- * @property float $tax
+ * @property string $id
+ * @property string|null $affiliation
+ * @property string|null $currency
+ * @property float|null $value
+ * @property float|null $shipping
+ * @property float|null $tax
  * @property Item[] $items
  *
  * @author Attreid <attreid@gmail.com>
@@ -24,19 +25,22 @@ class Transaction
 
 	use SmartObject;
 
-	/** @var int */
+	/** @var string */
 	private $id;
 
-	/** @var string */
+	/** @var string|null */
 	private $affiliation;
 
-	/** @var float */
-	private $revenue;
+	/** @var string|null */
+	private $currency;
 
-	/** @var float */
+	/** @var float|null */
+	private $value;
+
+	/** @var float|null */
 	private $shipping;
 
-	/** @var float */
+	/** @var float|null */
 	private $tax;
 
 	/** @var Item[] */
@@ -59,21 +63,24 @@ class Transaction
 		$this->affiliation = $affiliation;
 	}
 
-	/**
-	 * @return float|null
-	 */
-	protected function getRevenue(): ?float
+	protected function getCurrency(): ?string
 	{
-		return $this->revenue;
+		return $this->currency;
 	}
 
-	/**
-	 * Grand total
-	 * @param float $revenue
-	 */
-	protected function setRevenue(float $revenue): void
+	protected function setCurrency(?string $currency): void
 	{
-		$this->revenue = $revenue;
+		$this->currency = $currency;
+	}
+
+	protected function getValue(): ?float
+	{
+		return $this->value;
+	}
+
+	protected function setValue(?float $value): void
+	{
+		$this->value = $value;
 	}
 
 	/**
@@ -111,9 +118,9 @@ class Transaction
 	}
 
 	/**
-	 * @return int
+	 * @return string
 	 */
-	protected function getId(): int
+	protected function getId(): string
 	{
 		if (empty($this->id)) {
 			throw new InvalidArgumentException('Transaction id must be set');
@@ -122,9 +129,9 @@ class Transaction
 	}
 
 	/**
-	 * @param int $id
+	 * @param string $id
 	 */
-	protected function setId(int $id): void
+	protected function setId(string $id): void
 	{
 		$this->id = $id;
 	}
@@ -132,7 +139,7 @@ class Transaction
 	/**
 	 * @return Item[]
 	 */
-	public function getItems(): array
+	protected function getItems(): array
 	{
 		return $this->items;
 	}

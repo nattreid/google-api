@@ -23,6 +23,9 @@ class GoogleApi extends Control
 	/** @var GoogleApiConfig */
 	private $config;
 
+	/** @var array */
+	private $events = [];
+
 	public function __construct(GoogleApiConfig $config)
 	{
 		parent::__construct();
@@ -40,21 +43,49 @@ class GoogleApi extends Control
 	}
 
 	/**
-	 * Conversion event (adwords)
-	 * @param float $value
-	 * @param string $currency
+	 * Send PageView
+	 * @param string $path
+	 * @param string|null $title
 	 */
-	public function conversion(float $value = null, string $currency = null): void
+	public function pageView(string $path, string $title = null): void
 	{
-		$conversion = new ArrayHash;
-		if ($value !== null) {
-			$conversion->price = floatval($value);
+		$this->redrawControl('init');
+		$obj = new ArrayHash;
+		$obj->page_path = $path;
+		if ($title !== null) {
+			$obj->page_title = $title;
 		}
-		if ($currency !== null) {
-			$conversion->currency = $currency;
-		}
+		$this->template->pageView = $obj;
+	}
 
-		$this->template->conversion = $conversion;
+	private function event(string $name, string $sendTo, ArrayHash $data): void
+	{
+		$this->redrawControl('event');
+		$data->send_to = $sendTo;
+		$obj = new ArrayHash;
+		$obj->name = $name;
+		$obj->data = $data;
+		$this->events[] = $obj;
+	}
+
+	/**
+	 * Conversion event (adwords)
+	 * @param float|null $value
+	 * @param string|null $currency
+	 * @param int|null $transactionId
+	 */
+	public function conversion(float $value = null, string $currency = null, int $transactionId = null): void
+	{
+		if ($this->config->adWordsConversionId) {
+			$data = new ArrayHash;
+			$data->value = $value;
+			$data->currency = $currency;
+			$data->transaction_id = $transactionId ?? '';
+
+			$this->event('conversion',
+				$this->config->adWordsConversionId . '/' . $this->config->adWordsConversionLabel,
+				$data);
+		}
 	}
 
 	/**
@@ -65,17 +96,20 @@ class GoogleApi extends Control
 	 */
 	public function remarketingEcomm(string $type = null, float $value = null, int $id = null): void
 	{
-		$data = new ArrayHash;
-		if ($type !== null) {
-			$data->ecomm_pagetype = $type;
+		if ($this->config->adWordsConversionId) {
+			$data = new ArrayHash;
+			if ($type !== null) {
+				$data->ecomm_pagetype = $type;
+			}
+			if ($value !== null) {
+				$data->ecomm_totalvalue = $value;
+			}
+			if ($id !== null) {
+				$data->ecomm_prodid = $id;
+			}
+
+			$this->event('page_view', $this->config->adWordsConversionId ?? '', $data);
 		}
-		if ($value !== null) {
-			$data->ecomm_totalvalue = $value;
-		}
-		if ($id !== null) {
-			$data->ecomm_prodid = $id;
-		}
-		$this->template->remarketing = $data;
 	}
 
 	/**
@@ -84,7 +118,45 @@ class GoogleApi extends Control
 	 */
 	public function transaction(Transaction $transaction): void
 	{
-		$this->template->transaction = $transaction;
+		if ($this->config->gaClientId) {
+			$data = new ArrayHash;
+			$data->transaction_id = $transaction->id;
+			if ($transaction->affiliation !== null) {
+				$data->affiliation = $transaction->affiliation;
+			}
+			if ($transaction->value !== null) {
+				$data->value = $transaction->value;
+			}
+			if ($transaction->currency !== null) {
+				$data->currency = $transaction->currency;
+			}
+			if ($transaction->tax !== null) {
+				$data->tax = $transaction->tax;
+			}
+			if ($transaction->shipping !== null) {
+				$data->shipping = $transaction->shipping;
+			}
+			$data->items = [];
+			foreach ($transaction->items as $item) {
+				$itemData = new ArrayHash;
+				$itemData->id = $item->id;
+				$itemData->name = $item->name;
+				if ($item->category !== null) {
+					$itemData->category = $item->category;
+				}
+				if ($item->quantity !== null) {
+					$itemData->quantity = $item->quantity;
+				}
+				if ($item->price !== null) {
+					$itemData->price = $item->price;
+				}
+				$data->items[] = $itemData;
+			}
+
+			$this->event('purchase',
+				$this->config->gaClientId,
+				$data);
+		}
 	}
 
 	public function render(): void

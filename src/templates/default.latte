@@ -1,86 +1,33 @@
-<script n:if="$gaClientId">
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+<!-- Global site tag (gtag.js) -->
+{var $global = $gaClientId ?: $adWordsConversionId}
+<script async src="https://www.googletagmanager.com/gtag/js?id={$global}"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
 
-    ga('create', {$gaClientId}, 'auto');
-    ga('send', 'pageview');
-
-    {ifset $transaction}
-        ga('require', 'ecommerce');
-
-        ga('ecommerce:addTransaction', {
-            id: {$transaction->id},
-            affiliation: {$transaction->affiliation},
-            revenue: {$transaction->revenue},
-            shipping: {$transaction->shipping},
-            tax: {$transaction->tax}
-        });
-
-        {foreach $transaction->items as $item}
-            ga('ecommerce:addItem', {
-                id: {$transaction->id},
-                name: {$item->name},
-                sku: {$item->sku},
-                category: {$item->category},
-                price: {$item->price},
-                quantity: {$item->quantity}
-            });
-        {/foreach}
-
-        ga('ecommerce:send');
-    {/ifset}
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 </script>
 
-{if isset($remarketing) && $adWordsConversionId}
-    <script type="text/javascript">
-        var google_tag_params = {$remarketing};
-    </script>
-    <script type="text/javascript">
-        /* <![CDATA[ */
-        var google_conversion_id = {$adWordsConversionId};
-        var google_custom_params = window.google_tag_params;
-        var google_remarketing_only = true;
-        /* ]]> */
-    </script>
-    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-    </script>
-    <noscript>
-        <div style="display:inline;">
-            <img height="1" width="1" style="border-style:none;" alt=""
-                 src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/{$adWordsConversionId|noescape}/?guid=ON&amp;script=0"/>
-        </div>
-    </noscript>
-{/if}
+{snippet init}
+    <script>
+        {if $gaClientId}
+            {if isset()}
+                gtag('config', {$gaClientId}, {$pageView});
+            {else}
+                gtag('config', {$gaClientId});
+            {/if}
+        {/if}
 
-{if isset($conversion) && $adWordsConversionId}
-    <script type="text/javascript">
-        /* <![CDATA[ */
-        var google_conversion_id = {$adWordsConversionId};
-        var google_conversion_language = "en";
-        var google_conversion_format = "3";
-        var google_conversion_color = "ffffff";
-        var google_conversion_label = {$adWordsConversionLabel};
-        {ifset $conversion->price}var google_conversion_value = {$conversion->price};{/ifset}
-        {ifset $conversion->currency}var google_conversion_currency = {$conversion->currency};{/ifset}
-        var google_remarketing_only = false;
-        /* ]]> */
+        {if $adWordsConversionId}
+            gtag('config', {$adWordsConversionId});
+        {/if}
     </script>
-    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+{/snippet}
+
+{snippet event}
+    <script>
+        {foreach $events as $event}
+            gtag('event', {$event->name}, {$event->data});
+        {/foreach}
     </script>
-    <noscript>
-        <div style="display:inline;">
-            <img height="1" width="1" style="border-style:none;" alt=""
-                 src="//www.googleadservices.com/pagead/conversion/{$adWordsConversionId|noescape}/
-                 ?{ifset $conversion->price}value={$conversion->price|noescape}&{/ifset}{ifset $conversion->currency}currency_code={$conversion->currency|noescape}&{/ifset}label={$adWordsConversionLabel|noescape}&guid=ON&script=0"/>
-        </div>
-    </noscript>
-{/if}
+{/snippet}

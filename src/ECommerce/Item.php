@@ -10,8 +10,8 @@ use Nette\SmartObject;
 /**
  * Class Item
  *
+ * @property string $id
  * @property string $name
- * @property string $sku
  * @property string $category
  * @property float $price
  * @property int $quantity
@@ -23,11 +23,31 @@ class Item
 
 	use SmartObject;
 
+	private $id;
 	private $name;
-	private $sku;
 	private $category;
 	private $price;
 	private $quantity;
+
+	/**
+	 * @return string|null
+	 */
+	protected function getId(): ?string
+	{
+		if (empty($this->id)) {
+			throw new InvalidArgumentException('Item id must be set');
+		}
+		return $this->id;
+	}
+
+	/**
+	 * SKU/code
+	 * @param string $id
+	 */
+	protected function setId(string $id): void
+	{
+		$this->id = $id;
+	}
 
 	/**
 	 * @return string
@@ -47,23 +67,6 @@ class Item
 	protected function setName(string $name): void
 	{
 		$this->name = $name;
-	}
-
-	/**
-	 * @return string|null
-	 */
-	protected function getSku(): ?string
-	{
-		return $this->sku;
-	}
-
-	/**
-	 * SKU/code
-	 * @param string $sku
-	 */
-	protected function setSku(string $sku): void
-	{
-		$this->sku = $sku;
 	}
 
 	/**

@@ -13,14 +13,14 @@
 <div class="tab-content">
     <div id="analytics" class="in active tab-pane fade">
         <pre>
+&lt;!-- Global site tag (gtag.js) - Google Analytics: <strong class="text-danger">UA-XXXXXXXX-X</strong> --&gt;
+&lt;script async src="https://www.googletagmanager.com/gtag/js?id=<strong class="text-danger">UA-XXXXXXXX-X</strong>"&gt;&lt;/script&gt;
 &lt;script&gt;
-    (function(i,s,o,g,r,a,m)&#123;i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-    ga('create', '<strong class="text-danger">UA-XXXXXXXX-X</strong>', 'auto');
-    ga('send', 'pageview');
+    gtag('config', '<strong class="text-danger">UA-XXXXXXXX-X</strong>');
 &lt;/script&gt;
         </pre>
     </div>
@@ -35,27 +35,25 @@
     </div>
     <div id="adWords" class="tab-pane fade">
         <pre>
-&lt;script type=&quot;text/javascript&quot;&gt;
-    /* &lt;![CDATA[ */
-        var google_conversion_id = <strong class="text-danger">1234567890</strong>;
-        var google_conversion_language = &quot;en&quot;;
-        var google_conversion_format = &quot;2&quot;;
-        var google_conversion_color = &quot;ffffff&quot;;
-        var google_conversion_label = &quot;<strong class="text-danger">xxx1XXx1xXXX123X1xX</strong>&quot;;
-        var google_conversion_value = 1.00;
-        var google_conversion_currency = &quot;CZK&quot;;
-        var google_remarketing_only = false;
-    /* ]]&gt; */
+&lt;!-- Global site tag (gtag.js) - Google AdWords: <strong class="text-danger">UA-XXXXXXXX-X</strong> --&gt;
+&lt;script async src="https://www.googletagmanager.com/gtag/js?id=<strong class="text-danger">UA-XXXXXXXX-X</strong>"&gt;&lt;/script&gt;
+&lt;script&gt;
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+    gtag('config', '<strong class="text-danger">UA-XXXXXXXX-X</strong>');
 &lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;//www.googleadservices.com/pagead/conversion.js&quot;&gt;
+
+&lt;!-- Event snippet for conversion page --&gt;
+&lt;script&gt;
+  gtag('event', 'conversion', {
+      'send_to': ''<strong class="text-danger">UA-XXXXXXXX-X</strong>/<strong class="text-danger">xxx1XXx1xXXX123X1xX</strong>',
+      'value': 1.0,
+      'currency': 'CZK',
+      'transaction_id': ''
+  });
 &lt;/script&gt;
-&lt;noscript&gt;
-    &lt;div style=&quot;display:inline;&quot;&gt;
-        &lt;img height=&quot;1&quot; width=&quot;1&quot; style=&quot;border-style:none;&quot; alt=&quot;&quot; src=&quot;//www.googleadservices.com/pagead/conversion/<strong
-                    class="text-danger">1234567890</strong>/
-        ?value=1.00&amp;currency_code=CZK&amp;label=<strong class="text-danger">xxx1XXx1xXXX123X1xX</strong>&amp;guid=ON&amp;script=0&quot;/&gt;
-    &lt;/div&gt;
-&lt;/noscript&gt;
         </pre>
     </div>
 </div>

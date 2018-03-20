@@ -22,7 +22,9 @@ protected function createComponentGoogleApi() {
     return $this->googleApiFactory->create();
 }
 
-public function someRender(){
+public function someRender() {
+    $this['googleApi']->pageView('/product','Product');   // pageView
+
     // adwords
     $this['googleApi']->remarketingEcomm('product', 3.5, 123);   // remarketing
     $this['googleApi']->conversion(3.5, 'CZK');                  // konverze
@@ -30,16 +32,19 @@ public function someRender(){
     // eCommerce
     $transaction = new Transaction;
     $transaction->id = 12345;
-    $transaction->revenue = 5.5;
+    $transaction->value = 5.5;
     $transaction->shipping = 1;
 
     $item = new Item;
+    $item->id = 1;
     $item->name = 'Item';
     $item->sku = 'code';
     $item->category = 'category';
     $item->price = 5.5;
     $item->quantity = 1;
     $transaction->addItem($item);
+    
+    $this['googleApi']->transaction($transaction);
 }
 ```
 
