@@ -8,6 +8,7 @@ use NAttreid\GoogleApi\ECommerce\Transaction;
 use NAttreid\GoogleApi\Hooks\GoogleApiConfig;
 use Nette\Application\UI\Control;
 use Nette\Utils\ArrayHash;
+use Nette\Utils\Json;
 
 /**
  * Class GoogleApiClient
@@ -50,12 +51,12 @@ class GoogleApi extends Control
 	public function pageView(string $path, string $title = null): void
 	{
 		$this->redrawControl('init');
-		$obj = new ArrayHash;
-		$obj->page_path = $path;
+		$data = new ArrayHash;
+		$data->page_path = $path;
 		if ($title !== null) {
-			$obj->page_title = $title;
+			$data->page_title = $title;
 		}
-		$this->template->pageView = $obj;
+		$this->template->pageView = $data;
 	}
 
 	private function event(string $name, string $sendTo, ArrayHash $data): void
@@ -64,7 +65,7 @@ class GoogleApi extends Control
 		$data->send_to = $sendTo;
 		$obj = new ArrayHash;
 		$obj->name = $name;
-		$obj->data = $data;
+		$obj->data = Json::encode($data);
 		$this->events[] = $obj;
 	}
 
@@ -83,7 +84,7 @@ class GoogleApi extends Control
 			$data->transaction_id = $transactionId ?? '';
 
 			$this->event('conversion',
-				$this->config->adWordsConversionId . '/' . $this->config->adWordsConversionLabel,
+				'AW-' . $this->config->adWordsConversionId . '/' . $this->config->adWordsConversionLabel,
 				$data);
 		}
 	}
@@ -108,7 +109,7 @@ class GoogleApi extends Control
 				$data->ecomm_prodid = $id;
 			}
 
-			$this->event('page_view', $this->config->adWordsConversionId ?? '', $data);
+			$this->event('page_view', 'AW-' . $this->config->adWordsConversionId, $data);
 		}
 	}
 
@@ -161,9 +162,12 @@ class GoogleApi extends Control
 
 	public function render(): void
 	{
-		$this->template->adWordsConversionId = $this->config->adWordsConversionId;
+		$this->template->adWordsConversionId = 'AW-' . $this->config->adWordsConversionId;
 		$this->template->adWordsConversionLabel = $this->config->adWordsConversionLabel;
 		$this->template->gaClientId = $this->config->gaClientId;
+
+		$this->template->events = $this->events;
+
 		$this->template->setFile(__DIR__ . '/templates/default.latte');
 		$this->template->render();
 	}
