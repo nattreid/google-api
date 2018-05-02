@@ -53,11 +53,11 @@ v @layout.latte
 <html>
 <head>
     <!-- html kod -->
-    {control googleApi:head}
+    {control googleApi}
 </head>
 <body>
+    {control googleApi:event}
     <!-- html kod -->
-    {control googleApi}
 </body>
 </html>
 ```

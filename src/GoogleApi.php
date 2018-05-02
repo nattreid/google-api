@@ -160,31 +160,42 @@ class GoogleApi extends Control
 		}
 	}
 
-	public function render(): void
+	private function getAdwordsID(): ?string
 	{
-		$this->template->adWordsConversionId = 'AW-' . $this->config->adWordsConversionId;
+		$id = $this->config->adWordsConversionId;
+		if ($id) {
+			$id = 'AW-' . $id;
+		}
+		return $id;
+	}
+
+	public function renderEvent(): void
+	{
+		$this->template->adWordsConversionId = $this->getAdwordsID();
 		$this->template->adWordsConversionLabel = $this->config->adWordsConversionLabel;
 		$this->template->gaClientId = $this->config->gaClientId;
 
+		$this->template->view = (bool) ($this->config->gaClientId ?: $this->config->adWordsConversionId);
+
 		$this->template->events = $this->events;
 
-		$this->template->setFile(__DIR__ . '/templates/default.latte');
+		$this->template->setFile(__DIR__ . '/templates/event.latte');
 		$this->template->render();
 	}
 
-	public function renderHead(): void
+	public function render(): void
 	{
+		$id = $this->config->gaClientId;
+		if (!$id) {
+			$id = $this->getAdwordsID();
+		}
+		$this->template->id = $id;
+
 		$this->template->authenticationKeys = [
 			$this->config->webMasterKey,
 			$this->config->merchantKey
 		];
-		$this->template->setFile(__DIR__ . '/templates/head.latte');
-		$this->template->render();
-	}
-
-	public function renderAdWords(): void
-	{
-		$this->template->setFile(__DIR__ . '/templates/adWords.latte');
+		$this->template->setFile(__DIR__ . '/templates/default.latte');
 		$this->template->render();
 	}
 }

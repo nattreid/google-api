@@ -1,33 +1,14 @@
+{foreach $authenticationKeys as $key}
+    <meta n:if="$key" name="google-site-verification" content="{$key}"/>
+{/foreach}
+
 <!-- Global site tag (gtag.js) -->
-{var $global = $gaClientId ?: $adWordsConversionId}
-<script async src="https://www.googletagmanager.com/gtag/js?id={$global}"></script>
+{if $id}
+<script async src="https://www.googletagmanager.com/gtag/js?id={$id}"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
 
     function gtag(){ dataLayer.push(arguments);}
     gtag('js', new Date());
 </script>
-
-{snippet init}
-    <script>
-        {if $gaClientId}
-            {if isset($pageView)}
-                gtag('config', {$gaClientId}, {$pageView});
-            {else}
-                gtag('config', {$gaClientId});
-            {/if}
-        {/if}
-
-        {if $adWordsConversionId}
-            gtag('config', {$adWordsConversionId});
-        {/if}
-    </script>
-{/snippet}
-
-{snippet event}
-    <script>
-        {foreach $events as $event}
-            gtag('event', {$event->name}, {$event->data|noescape});
-        {/foreach}
-    </script>
-{/snippet}
+{/if}

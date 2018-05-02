@@ -1,0 +1,23 @@
+{snippet init}
+    <script n:if="$view">
+        {if $gaClientId}
+            {if isset($pageView)}
+                gtag('config', {$gaClientId}, {$pageView});
+            {else}
+                gtag('config', {$gaClientId});
+            {/if}
+        {/if}
+
+        {if $adWordsConversionId}
+            gtag('config', {$adWordsConversionId});
+        {/if}
+    </script>
+{/snippet}
+
+{snippet event}
+    <script n:if="$view">
+        {foreach $events as $event}
+            gtag('event', {$event->name}, {$event->data|noescape});
+        {/foreach}
+    </script>
+{/snippet}
