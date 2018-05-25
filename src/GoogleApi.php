@@ -27,6 +27,9 @@ class GoogleApi extends Control
 	/** @var array */
 	private $events = [];
 
+	/** @var ArrayHash|null */
+	private $data;
+
 	public function __construct(GoogleApiConfig $config)
 	{
 		parent::__construct();
@@ -43,6 +46,24 @@ class GoogleApi extends Control
 		return $this->config->adWordsConversionId;
 	}
 
+	private function data(string $name, $value): void
+	{
+		if ($this->data === null) {
+			$this->data = new ArrayHash;
+		}
+		$this->data->$name = $value;
+	}
+
+	private function event(string $name, string $sendTo, ArrayHash $data): void
+	{
+		$data->send_to = $sendTo;
+		$obj = new ArrayHash;
+		$obj->name = $name;
+		$obj->data = Json::encode($data);
+		$this->events[] = $obj;
+		$this->redrawControl('event');
+	}
+
 	/**
 	 * Send PageView
 	 * @param string $path
@@ -50,23 +71,11 @@ class GoogleApi extends Control
 	 */
 	public function pageView(string $path, string $title = null): void
 	{
-		$this->redrawControl('init');
-		$data = new ArrayHash;
-		$data->page_path = $path;
+		$this->data('page_path', $path);
 		if ($title !== null) {
-			$data->page_title = $title;
+			$this->data('page_title', $title);
 		}
-		$this->template->pageView = $data;
-	}
-
-	private function event(string $name, string $sendTo, ArrayHash $data): void
-	{
-		$this->redrawControl('event');
-		$data->send_to = $sendTo;
-		$obj = new ArrayHash;
-		$obj->name = $name;
-		$obj->data = Json::encode($data);
-		$this->events[] = $obj;
+		$this->redrawControl('init');
 	}
 
 	/**
@@ -179,6 +188,10 @@ class GoogleApi extends Control
 
 		$this->template->events = $this->events;
 
+		if($this->config->anonymize){
+			$this->data('anonymize_ip', true);
+		}
+
 		$this->template->setFile(__DIR__ . '/templates/event.latte');
 		$this->template->render();
 	}
@@ -190,6 +203,7 @@ class GoogleApi extends Control
 			$id = $this->getAdwordsID();
 		}
 		$this->template->id = $id;
+		$this->template->data = $this->data;
 
 		$this->template->authenticationKeys = [
 			$this->config->webMasterKey,

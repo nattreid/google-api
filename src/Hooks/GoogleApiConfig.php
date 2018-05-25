@@ -14,6 +14,7 @@ use Nette\SmartObject;
  * @property string|null $merchantKey overovaci klic pro google merchant
  * @property int|null $adWordsConversionId adWords conversion id
  * @property string|null $adWordsConversionLabel adWords conversion label
+ * @property bool $anonymizeIp anonymize IP
  *
  * @author Attreid <attreid@gmail.com>
  */
@@ -35,6 +36,9 @@ class GoogleApiConfig
 
 	/** @var string */
 	private $adWordsConversionLabel;
+
+	/** @var bool */
+	private $anonymizeIp = false;
 
 	protected function getGaClientId(): ?string
 	{
@@ -84,5 +88,15 @@ class GoogleApiConfig
 	protected function setAdWordsConversionLabel(?string $adWordsConversionLabel)
 	{
 		$this->adWordsConversionLabel = $adWordsConversionLabel;
+	}
+
+	protected function isAnonymizeIp(): bool
+	{
+		return $this->anonymizeIp;
+	}
+
+	protected function setAnonymizeIp(bool $anonymize): void
+	{
+		$this->anonymizeIp = $anonymize;
 	}
 }

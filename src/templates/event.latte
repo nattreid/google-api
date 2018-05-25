@@ -1,8 +1,8 @@
 {snippet init}
     <script n:if="$view">
         {if $gaClientId}
-            {if isset($pageView)}
-                gtag('config', {$gaClientId}, {$pageView});
+            {if $data}
+                gtag('config', {$gaClientId}, {$data});
             {else}
                 gtag('config', {$gaClientId});
             {/if}

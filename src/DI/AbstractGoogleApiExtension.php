@@ -21,7 +21,8 @@ abstract class AbstractGoogleApiExtension extends CompilerExtension
 		'webMasterKey' => null,
 		'merchantKey' => null,
 		'adWordsConversionId' => null,
-		'adWordsConversionLabel' => null
+		'adWordsConversionLabel' => null,
+		'anonymizeIp' => false,
 	];
 
 	public function loadConfiguration(): void
@@ -30,6 +31,7 @@ abstract class AbstractGoogleApiExtension extends CompilerExtension
 		$config = $this->validateConfig($this->defaults, $this->getConfig());
 
 		$googleApi = $this->prepareHook($config);
+		$googleApi->anonymizeIp = $config['anonymizeIp'];
 
 		$builder->addDefinition($this->prefix('factory'))
 			->setImplement(IGoogleApiFactory::class)

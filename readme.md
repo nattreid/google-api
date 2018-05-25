@@ -11,6 +11,7 @@ googleApi:
     merchantKey: 'xxx1x1xxxx1xx1xx12XXXX123x1x1234xx1x12x123x'
     adWordsConversionId: '1234567890'
     adWordsConversionLabel: 'xxx1XXx1xXXX123X1xX'
+    anonymizeIp: false
 ```
 
 Použití
