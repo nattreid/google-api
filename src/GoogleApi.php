@@ -191,6 +191,7 @@ class GoogleApi extends Control
 		$this->template->view = (bool) ($this->config->gaClientId ?: $this->config->adWordsConversionId);
 
 		$this->template->events = $this->events;
+		$this->template->data = $this->data;
 
 		if ($this->anonymizeIp) {
 			$this->data('anonymize_ip', true);
@@ -207,7 +208,6 @@ class GoogleApi extends Control
 			$id = $this->getAdwordsID();
 		}
 		$this->template->id = $id;
-		$this->template->data = $this->data;
 
 		$this->template->authenticationKeys = [
 			$this->config->webMasterKey,
