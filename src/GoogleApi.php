@@ -30,10 +30,14 @@ class GoogleApi extends Control
 	/** @var ArrayHash|null */
 	private $data;
 
-	public function __construct(GoogleApiConfig $config)
+	/** @var bool */
+	private $anonymizeIp;
+
+	public function __construct(GoogleApiConfig $config, bool $anonymizeIp)
 	{
 		parent::__construct();
 		$this->config = $config;
+		$this->anonymizeIp = $anonymizeIp;
 	}
 
 	protected function getGaClientId(): ?string
@@ -188,7 +192,7 @@ class GoogleApi extends Control
 
 		$this->template->events = $this->events;
 
-		if($this->config->anonymize){
+		if ($this->anonymizeIp) {
 			$this->data('anonymize_ip', true);
 		}
 

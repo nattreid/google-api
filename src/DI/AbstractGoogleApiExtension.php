@@ -31,12 +31,11 @@ abstract class AbstractGoogleApiExtension extends CompilerExtension
 		$config = $this->validateConfig($this->defaults, $this->getConfig());
 
 		$googleApi = $this->prepareHook($config);
-		$googleApi->anonymizeIp = $config['anonymizeIp'];
 
 		$builder->addDefinition($this->prefix('factory'))
 			->setImplement(IGoogleApiFactory::class)
 			->setFactory(GoogleApi::class)
-			->setArguments([$googleApi]);
+			->setArguments([$googleApi, $config['anonymizeIp']]);
 	}
 
 	protected function prepareHook(array $config)
