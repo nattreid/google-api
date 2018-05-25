@@ -191,11 +191,11 @@ class GoogleApi extends Control
 		$this->template->view = (bool) ($this->config->gaClientId ?: $this->config->adWordsConversionId);
 
 		$this->template->events = $this->events;
-		$this->template->data = $this->data;
 
 		if ($this->anonymizeIp) {
 			$this->data('anonymize_ip', true);
 		}
+		$this->template->data = $this->data;
 
 		$this->template->setFile(__DIR__ . '/templates/event.latte');
 		$this->template->render();
