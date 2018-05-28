@@ -30,7 +30,7 @@ abstract class AbstractGoogleApiExtension extends CompilerExtension
 		$builder = $this->getContainerBuilder();
 		$config = $this->validateConfig($this->defaults, $this->getConfig());
 
-		$googleApi = $this->prepareHook($config);
+		$googleApi = $this->prepareConfig($config);
 
 		$builder->addDefinition($this->prefix('factory'))
 			->setImplement(IGoogleApiFactory::class)
@@ -38,14 +38,15 @@ abstract class AbstractGoogleApiExtension extends CompilerExtension
 			->setArguments([$googleApi, $config['anonymizeIp']]);
 	}
 
-	protected function prepareHook(array $config)
+	protected function prepareConfig(array $config)
 	{
-		$googleApi = new GoogleApiConfig;
-		$googleApi->gaClientId = $config['gaClientId'];
-		$googleApi->adWordsConversionId = $config['adWordsConversionId'];
-		$googleApi->adWordsConversionLabel = $config['adWordsConversionLabel'];
-		$googleApi->webMasterKey = $config['webMasterKey'];
-		$googleApi->merchantKey = $config['merchantKey'];
-		return $googleApi;
+		$builder = $this->getContainerBuilder();
+		return $builder->addDefinition($this->prefix('config'))
+			->setFactory(GoogleApiConfig::class)
+			->addSetup('$gaClientId', [$config['gaClientId']])
+			->addSetup('$adWordsConversionId', [$config['adWordsConversionId']])
+			->addSetup('$adWordsConversionLabel', [$config['adWordsConversionLabel']])
+			->addSetup('$webMasterKey', [$config['webMasterKey']])
+			->addSetup('$merchantKey', [$config['merchantKey']]);
 	}
 }
