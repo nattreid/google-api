@@ -26,5 +26,10 @@
     "classmap": [
       "src/"
     ]
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.1-dev"
+    }
   }
 }
