@@ -21,19 +21,19 @@ class GoogleApiConfig
 {
 	use SmartObject;
 
-	/** @var string */
+	/** @var string|null */
 	private $gaClientId;
 
-	/** @var string */
+	/** @var string|null */
 	private $webMasterKey;
 
-	/** @var string */
+	/** @var string|null */
 	private $merchantKey;
 
-	/** @var int */
+	/** @var int|null */
 	private $adWordsConversionId;
 
-	/** @var string */
+	/** @var string|null */
 	private $adWordsConversionLabel;
 
 	protected function getGaClientId(): ?string
