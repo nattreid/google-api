@@ -35,7 +35,6 @@ class GoogleApi extends Control
 
 	public function __construct(GoogleApiConfig $config, bool $anonymizeIp)
 	{
-		parent::__construct();
 		$this->config = $config;
 		$this->anonymizeIp = $anonymizeIp;
 	}
