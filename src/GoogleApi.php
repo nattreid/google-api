@@ -153,10 +153,10 @@ class GoogleApi extends Control
 			$data->items = [];
 			foreach ($transaction->items as $item) {
 				$itemData = new ArrayHash;
-				$itemData->id = $item->id;
-				$itemData->name = $item->name;
+				$itemData->item_id = $item->id;
+				$itemData->item_name = $item->name;
 				if ($item->category !== null) {
-					$itemData->category = $item->category;
+					$itemData->item_category = $item->category;
 				}
 				if ($item->quantity !== null) {
 					$itemData->quantity = $item->quantity;
@@ -182,13 +182,28 @@ class GoogleApi extends Control
 		return $id;
 	}
 
+	private function getAdsID(): ?string
+	{
+		$id = $this->config->adsId;
+		if ($id) {
+			$id = 'ca-pub-' . $id;
+		}
+		return $id;
+	}
+
+	public function getAdsTxt(): ?string
+	{
+		if ($this->config->adsId === null) return null;
+		return 'google.com, pub-' . $this->config->adsId . ', DIRECT, f08c47fec0942fa0';
+	}
+
 	public function renderEvent(): void
 	{
 		$this->template->adWordsConversionId = $this->getAdwordsID();
 		$this->template->adWordsConversionLabel = $this->config->adWordsConversionLabel;
 		$this->template->gaClientId = $this->config->gaClientId;
 
-		$this->template->view = (bool) ($this->config->gaClientId ?: $this->config->adWordsConversionId);
+		$this->template->view = (bool)($this->config->gaClientId ?: $this->config->adWordsConversionId);
 
 		$this->template->events = $this->events;
 
@@ -213,6 +228,8 @@ class GoogleApi extends Control
 			$this->config->webMasterKey,
 			$this->config->merchantKey
 		];
+
+		$this->template->adsId = $this->getAdsID();
 		$this->template->setFile(__DIR__ . '/templates/default.latte');
 		$this->template->render();
 	}

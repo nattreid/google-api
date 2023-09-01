@@ -17,3 +17,6 @@ web:
                 title: "AdWords"
                 conversionId: "Your \"google_conversion_id\""
                 conversionLabel: "Your \"google_conversion_label\""
+            ads:
+                title: "Adsense"
+                id: "Your Adsense Id"

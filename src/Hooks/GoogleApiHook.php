@@ -52,6 +52,10 @@ class GoogleApiHook extends HookFactory
 		$form->addText('conversionLabel', 'webManager.web.hooks.googleApi.adWords.conversionLabel')
 			->setDefaultValue($this->configurator->googleApi->adWordsConversionLabel);
 
+		$form->addGroup('webManager.web.hooks.googleApi.ads.title');
+		$form->addInteger('adsId', 'webManager.web.hooks.googleApi.ads.id')
+			->setDefaultValue($this->configurator->googleApi->adsId);
+
 		$form->addSubmit('save', 'form.save');
 
 		$form->onSuccess[] = [$this, 'googleApiFormSucceeded'];
@@ -68,6 +72,7 @@ class GoogleApiHook extends HookFactory
 		$config->merchantKey = $values->merchantKey ?: null;
 		$config->adWordsConversionId = $values->conversionId ?: null;
 		$config->adWordsConversionLabel = $values->conversionLabel ?: null;
+		$config->adsId = $values->adsId ?: null;
 
 		$this->configurator->googleApi = $config;
 
